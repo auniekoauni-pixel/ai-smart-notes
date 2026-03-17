@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Smart Notes</title>
+</head>
+<body>
+
+<h2>🤖 AI Smart Notes</h2>
+<p>Masukkan materi (pakai titik ya), lalu klik ringkas</p>
+
+<textarea id="inputText" style="width:100%;height:120px;"></textarea>
+<br><br>
+
+<button onclick="ringkas()">Ringkas</button>
+
+<div id="output"></div>
+
+<script>
+function ringkas() {
+  let text = document.getElementById("inputText").value;
+
+  if (text.trim() === "") {
+    alert("Isi dulu materinya!");
+    return;
+  }
+
+  // pisahkan kalimat
+  let kalimat = text.split(".")
+    .map(k => k.trim())
+    .filter(k => k.length > 0);
+
+  let hasil = [];
+
+  // ambil 4 kalimat pertama (biar ga terlalu pendek)
+  let inti = kalimat.slice(0, 4);
+
+  // gabungkan jadi paragraf ringkasan
+  let ringkasan = inti.join(". ") + ".";
+
+  // tambahkan kesimpulan sederhana
+  let kesimpulan = "";
+
+  if (text.toLowerCase().includes("adalah") || text.toLowerCase().includes("merupakan")) {
+    kesimpulan = " Materi ini menjelaskan konsep utama yang penting untuk dipahami siswa.";
+  } else if (text.toLowerCase().includes("proses") || text.toLowerCase().includes("terjadi")) {
+    kesimpulan = " Materi ini menjelaskan suatu proses yang terjadi secara sistematis.";
+  } else {
+    kesimpulan = " Materi ini berisi informasi penting yang dapat dipelajari lebih lanjut.";
+  }
+
+  document.getElementById("output").innerHTML =
+    "<b>Ringkasan:</b><br><br>" +
+    ringkasan + kesimpulan;
+}
+</script>
+
+</body>
+</html>
